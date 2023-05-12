@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebShop.Data;
@@ -11,9 +12,11 @@ using WebShop.Data;
 namespace WebShop.Migrations
 {
     [DbContext(typeof(AppEFContext))]
-    partial class AppEFContextModelSnapshot : ModelSnapshot
+    [Migration("20230512124710_Add table RealeStates")]
+    partial class AddtableRealeStates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,25 +65,6 @@ namespace WebShop.Migrations
                     b.ToTable("tblCategories");
                 });
 
-            modelBuilder.Entity("WebShop.Data.Entities.RealeStateComercialEntity", b =>
-                {
-                    b.Property<int>("RealeStateId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("text");
-
-                    b.HasKey("RealeStateId");
-
-                    b.ToTable("tblRealeStateComercials");
-                });
-
             modelBuilder.Entity("WebShop.Data.Entities.RealeStateEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -125,17 +109,6 @@ namespace WebShop.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("WebShop.Data.Entities.RealeStateComercialEntity", b =>
-                {
-                    b.HasOne("WebShop.Data.Entities.RealeStateEntity", "RealeState")
-                        .WithOne("RealeStateComercial")
-                        .HasForeignKey("WebShop.Data.Entities.RealeStateComercialEntity", "RealeStateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RealeState");
-                });
-
             modelBuilder.Entity("WebShop.Data.Entities.RealeStateEntity", b =>
                 {
                     b.HasOne("WebShop.Data.Entities.CategoryEntity", "Category")
@@ -152,11 +125,6 @@ namespace WebShop.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("RealeStates");
-                });
-
-            modelBuilder.Entity("WebShop.Data.Entities.RealeStateEntity", b =>
-                {
-                    b.Navigation("RealeStateComercial");
                 });
 #pragma warning restore 612, 618
         }
