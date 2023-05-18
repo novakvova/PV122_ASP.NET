@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
 using WebShop.Data;
 using WebShop.Data.Entities;
@@ -34,14 +35,26 @@ namespace WebShop.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CategoryCreateViewModel model)
+        public async Task<IActionResult> Create([FromForm] CategoryCreateViewModel model)
         {
+            String imageName = string.Empty;
+            if(model.Image != null)
+            {
+                var fileExp = Path.GetExtension(model.Image.FileName);
+                var dirSave = Path.Combine(Directory.GetCurrentDirectory(), "images");
+                imageName = Path.GetRandomFileName()+fileExp;
+                using(var steam = System.IO.File.Create(Path.Combine(dirSave, imageName)))
+                {
+                    await model.Image.CopyToAsync(steam);
+                }
+            }
+
             CategoryEntity category = new CategoryEntity
             {
                 DateCreated = DateTime.UtcNow,
                 Name = model.Name,
                 Description = model.Description,
-                Image = model.Image,
+                Image = imageName,
                 Priority = model.Priority,
                 ParentId = model.ParentId == 0 ? null : model.ParentId,
             };
