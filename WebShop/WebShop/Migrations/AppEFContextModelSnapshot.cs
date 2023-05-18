@@ -61,61 +61,8 @@ namespace WebShop.Migrations
 
                     b.ToTable("tblCategories");
                 });
-
-            modelBuilder.Entity("WebShop.Data.Entities.RealeStateComercialEntity", b =>
-                {
-                    b.Property<int>("RealeStateId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("text");
-
-                    b.HasKey("RealeStateId");
-
-                    b.ToTable("tblRealeStateComercials");
-                });
-
-            modelBuilder.Entity("WebShop.Data.Entities.RealeStateEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("character varying(4000)");
-
-                    b.Property<string>("Image")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<string>("Price")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("tblRealeStates");
-                });
-
+          
+            
             modelBuilder.Entity("WebShop.Data.Entities.CategoryEntity", b =>
                 {
                     b.HasOne("WebShop.Data.Entities.CategoryEntity", "Parent")
@@ -125,39 +72,13 @@ namespace WebShop.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("WebShop.Data.Entities.RealeStateComercialEntity", b =>
-                {
-                    b.HasOne("WebShop.Data.Entities.RealeStateEntity", "RealeState")
-                        .WithOne("RealeStateComercial")
-                        .HasForeignKey("WebShop.Data.Entities.RealeStateComercialEntity", "RealeStateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RealeState");
-                });
-
-            modelBuilder.Entity("WebShop.Data.Entities.RealeStateEntity", b =>
-                {
-                    b.HasOne("WebShop.Data.Entities.CategoryEntity", "Category")
-                        .WithMany("RealeStates")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("WebShop.Data.Entities.CategoryEntity", b =>
                 {
                     b.Navigation("Children");
 
-                    b.Navigation("RealeStates");
                 });
 
-            modelBuilder.Entity("WebShop.Data.Entities.RealeStateEntity", b =>
-                {
-                    b.Navigation("RealeStateComercial");
-                });
+            
 #pragma warning restore 612, 618
         }
     }

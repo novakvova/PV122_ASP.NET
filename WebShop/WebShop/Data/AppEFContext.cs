@@ -11,7 +11,5 @@ namespace WebShop.Data
             
         }
         public DbSet<CategoryEntity> Categories { get; set; }
-        public DbSet<RealeStateEntity> RealeStates { get; set; }
-        public DbSet<RealeStateComercialEntity> RealeStateComercials { get; set; }
     }
 }

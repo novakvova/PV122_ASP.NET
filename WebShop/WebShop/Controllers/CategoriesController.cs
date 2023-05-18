@@ -20,7 +20,16 @@ namespace WebShop.Controllers
         [HttpGet("list")]
         public async Task<IActionResult> List()
         {
-            var result = await _appEFContext.Categories.ToListAsync();
+            var result = await _appEFContext.Categories
+                .Select(x => new CategoryItemViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Image= x.Image,
+                    ParentId = x.ParentId
+                })
+                .ToListAsync();
             return Ok(result);
         }
 
