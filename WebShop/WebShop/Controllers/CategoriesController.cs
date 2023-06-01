@@ -28,7 +28,8 @@ namespace WebShop.Controllers
                     Name = x.Name,
                     Description = x.Description,
                     Image= x.Image,
-                    ParentId = x.ParentId
+                    ParentId = x.ParentId,
+                    ParentName=x.Parent.Name
                 })
                 .ToListAsync();
             return Ok(result);

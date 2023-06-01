@@ -4,5 +4,6 @@ export interface ICategoryItem {
     "priority": number,
     "image": string,
     "description": string,
-    "parentId": number|null|undefined
+    "parentId": number|null|undefined,
+    "parentName": string,
 }

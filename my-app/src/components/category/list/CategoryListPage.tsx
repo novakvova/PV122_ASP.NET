@@ -20,7 +20,7 @@ const CategoryListPage = () => {
             <img src={`${APP_ENV.BASE_URL}images/${category.image}`} alt="фото" width={50} />
         </td>
         <td>{category.name}</td>
-        <td>{category.parentId}</td>
+        <td>{category.parentName}</td>
         <td>{category.description}</td>
     </tr>
   ));
