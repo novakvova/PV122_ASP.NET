@@ -46,7 +46,7 @@ namespace WebShop.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                result = await _userManager.AddToRoleAsync(user, Roles.Admin);
+                result = await _userManager.AddToRoleAsync(user, Roles.User);
                 return Ok();
             }
             return BadRequest();

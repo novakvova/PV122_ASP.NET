@@ -6,12 +6,16 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using System.Text.Json.Serialization;
 using WebShop.Abstract;
 using WebShop.Data;
 using WebShop.Data.Entities.Identity;
 using WebShop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Add services to the container.
 builder.Services.AddDbContext<AppEFContext>(options =>
