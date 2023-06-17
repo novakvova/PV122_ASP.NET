@@ -19,5 +19,6 @@ namespace WebShop.Data.Entities
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public virtual CategoryEntity Category { get; set; }
+        public virtual ICollection<ProductImageEntity> ProductImages { get; set; }
     }
 }
