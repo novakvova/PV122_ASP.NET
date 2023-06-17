@@ -22,5 +22,6 @@ namespace WebShop.Data.Entities
         public int? ParentId { get; set; }
         public virtual CategoryEntity Parent { get; set; }
         public virtual ICollection<CategoryEntity> Children { get; set; }
+        public virtual ICollection<ProductEntity> Products { get; set; }
     }
 }
