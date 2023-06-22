@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using WebShop.Abstract;
 using WebShop.Data;
 using WebShop.Data.Entities.Identity;
+using WebShop.Mapper;
 using WebShop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -81,6 +82,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+builder.Services.AddAutoMapper(typeof(AppMapProfile));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
