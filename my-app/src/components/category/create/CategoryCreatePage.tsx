@@ -1,19 +1,16 @@
 import { useFormik } from "formik";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ICategoryCreate } from "./types";
 import * as yup from "yup";
 import classNames from "classnames";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import http from "../../../http";
-import { APP_ENV } from "../../../env";
 import { ICategoryItem } from "../list/types";
 
 const CategoryCreatePage = () => {
   const navigator = useNavigate();
 
   const initValues: ICategoryCreate = {
-    id: 0,
     name: "",
     priority: null,
     image: "",
@@ -154,7 +151,7 @@ const CategoryCreatePage = () => {
             name="parentId"
             onChange={handleChange}
           >
-            <option selected>Обрати категорію</option>
+            <option value={0} selected>Обрати категорію</option>
             {list.map((category) => (
               <option
                 onChange={handleChange}

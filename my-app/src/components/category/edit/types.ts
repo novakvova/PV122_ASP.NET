@@ -1,7 +1,8 @@
-export interface ICategoryCreate {
+export interface ICategoryEdit {
+    "id": number,
     "name": string,
     "priority": number|null,
-    "image": string,
+    "imageUpload": File|null,
     "description": string,
     "parentId": number|null|undefined
 }

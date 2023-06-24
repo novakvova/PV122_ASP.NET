@@ -35,6 +35,20 @@ namespace WebShop.Controllers
             return Ok(result);
         }
 
+        [HttpGet("get/{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _appEFContext.Categories
+                .Where(x => x.Id == id)
+                .Select(x => _mapper.Map<CategoryItemViewModel>(x))
+                .ToListAsync();
+            if (result.Count > 0)
+            {
+                return Ok(result[0]);
+            }
+            else { return NotFound(); }
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromForm] CategoryCreateViewModel model)
         {
