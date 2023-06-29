@@ -37,6 +37,7 @@ const LoginPage = () => {
                 });
             const {token} = resp.data;
             const user = jwtDecode(token) as IUser;
+            //console.log("User info", user);
             localStorage.token = token;
             http.defaults.headers.common[
                 "Authorization"
@@ -46,6 +47,7 @@ const LoginPage = () => {
                 payload: {
                     email: user.email,
                     image: user.image,
+                    roles: user.roles
                 },
             });
             navigator("/");

@@ -4,7 +4,7 @@ import { ICategoryEdit } from "./types";
 import * as yup from "yup";
 import classNames from "classnames";
 import {useNavigate, useParams} from "react-router-dom";
-import http from "../../../http";
+import http from "../../../../http";
 import { ICategoryItem } from "../list/types";
 import {ICategoryCreate} from "../create/types";
 
@@ -39,7 +39,7 @@ const CategoryEditPage = () => {
             })
             .then((resp) => {
                 //console.log("Create date in server", resp);
-                navigator("/");
+                navigator("../");
             });
     };
 

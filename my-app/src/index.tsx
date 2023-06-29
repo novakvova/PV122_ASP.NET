@@ -27,6 +27,7 @@ if (localStorage.token) {
     payload: {
       email: user.email,
       image: user.image,
+      roles: user.roles
     },
   });
 }

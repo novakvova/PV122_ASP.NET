@@ -4,7 +4,7 @@ import { ICategoryCreate } from "./types";
 import * as yup from "yup";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
-import http from "../../../http";
+import http from "../../../../http";
 import { ICategoryItem } from "../list/types";
 
 const CategoryCreatePage = () => {
@@ -35,7 +35,7 @@ const CategoryCreatePage = () => {
       })
       .then((resp) => {
         //console.log("Create date in server", resp);
-        navigator("/");
+        navigator("..");
       });
   };
 
