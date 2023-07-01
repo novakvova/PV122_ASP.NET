@@ -9,6 +9,8 @@ import AdminLayout from "./components/admin/container/AdminLayout";
 import AdminHomePage from "./components/admin/home/AdminHomePage";
 import HomePage from "./components/home/HomePage";
 import ForbiddenPage from "./components/pages/ForbiddenPage";
+import ProductListPage from "./components/admin/product/list/ProductListPage";
+import ProductCreatePage from "./components/admin/product/create/ProductCreatePage";
 
 function App() {
     return (
@@ -27,6 +29,10 @@ function App() {
                         <Route index element={<CategoryListPage/>}/>
                         <Route path="create" element={<CategoryCreatePage/>}/>
                         <Route path="edit/:id" element={<CategoryEditPage/>}/>
+                    </Route>
+                    <Route path={"products"}>
+                        <Route index element={<ProductListPage/>}/>
+                        <Route path="create" element={<ProductCreatePage/>}/>
                     </Route>
                 </Route>
             </Routes>
