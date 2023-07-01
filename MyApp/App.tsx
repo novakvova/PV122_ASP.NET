@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from "react";
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -24,6 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import axios from "axios";
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -55,12 +56,20 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
-function App(): JSX.Element {
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  useEffect(() => {
+    console.log("Use Effect working ---");
+    axios.get("http://10.0.2.2:8000/api/category").then(
+      resp => {
+        console.log("Responce = ", resp.data);
+      }
+    );
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -76,7 +85,7 @@ function App(): JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Де знайти дівчину">
+          <Section title="Де знайти дівчину--">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
           </Section>
