@@ -8,6 +8,7 @@ using WebShop.Data;
 using WebShop.Data.Entities;
 using WebShop.Helpers;
 using WebShop.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebShop.Controllers
 {
@@ -24,6 +25,29 @@ namespace WebShop.Controllers
             _configuration = configuration;
             _mapper = mapper;
 
+        }
+
+        [HttpGet("list")]
+        public async Task<IActionResult> List()
+        {
+            var model = await _appContext.Products
+                .Include(x => x.Category)
+                .Include(x=>x.ProductImages)
+                .Select(x=>new ProductGetViewModel
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    Price = x.Price,
+                    categoryId=x.CategoryId,
+                    CategoryName=x.Category.Name,
+                    Images = 
+                        x.ProductImages
+                        .Select(x=>
+                            new ProductImageItemViewModel { Id = x.Id, Name = x.Name })
+                        .ToList(),
+                })
+                .ToListAsync();
+            return Ok(model);
         }
 
         [HttpPost("AddProduct")]
@@ -65,7 +89,7 @@ namespace WebShop.Controllers
                 using (var ms = new MemoryStream())
                 {
                     await model.Image.CopyToAsync(ms);
-                    var bmp = new Bitmap(Image.FromStream(ms));
+                    var bmp = new Bitmap(System.Drawing.Image.FromStream(ms));
                     string[] sizes = ((string)_configuration.GetValue<string>("ImageSizes")).Split(" ");
                     foreach (var s in sizes)
                     {

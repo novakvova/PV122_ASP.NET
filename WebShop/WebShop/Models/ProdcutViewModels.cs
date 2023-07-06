@@ -30,4 +30,22 @@ namespace WebShop.Models
         public string Description { get; set; }
         public int categoryId { get; set; }
     }
+
+    public class ProductImageItemViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class ProductGetViewModel
+    {
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public List<ProductImageItemViewModel> Images { get; set; }
+        public string Description { get; set; }
+        public string CategoryName { get; set; }
+        public int categoryId { get; set; }
+    }
+
+
 }
