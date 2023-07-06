@@ -26,6 +26,32 @@ namespace WebShop.Controllers
 
         }
 
+        [HttpPost("AddProduct")]
+        public async Task<IActionResult> AddProduct([FromForm] ProductCreateViewModel model)
+        {
+            if (model.Name != null)
+            {
+                var product = new ProductEntity
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Price = model.Price,
+                    DateCreated = DateTime.UtcNow,
+                    CategoryId = model.categoryId
+                };
+                _appContext.Add(product);
+                _appContext.SaveChanges();
+                foreach (var idImg in model.ImagesID)
+                {
+                    var image = await _appContext.ProductImages.SingleOrDefaultAsync(x => x.Id == idImg);
+                    image.ProductId = product.Id;
+                }
+                _appContext.SaveChanges();
+                return Ok(product);
+            }
+            return BadRequest(404);
+        }
+
         [HttpPost("uploadImage")]
         public async Task<IActionResult> UploadImage([FromForm] ProdcutUploadImageViewModel model)
         {
