@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Drawing;
 using WebShop.Data;
@@ -25,7 +26,7 @@ namespace WebShop.Controllers
 
         }
 
-        [HttpPost("upload-image")]
+        [HttpPost("uploadImage")]
         public async Task<IActionResult> UploadImage([FromForm] ProdcutUploadImageViewModel model)
         {
             
@@ -56,6 +57,28 @@ namespace WebShop.Controllers
 
             }
             return BadRequest();
+        }
+
+        [HttpDelete("RemoveImage/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var image = await _appContext.ProductImages.SingleOrDefaultAsync(x => x.Id == id);
+            if (image == null)
+                return NotFound();
+
+            var dirSave = Path.Combine("images");
+            string[] sizes = ((string)_configuration.GetValue<string>("ImageSizes")).Split(" ");
+            foreach (var s in sizes)
+            {
+                var imgDelete = Path.Combine(dirSave, s + "_" + image.Name);
+                if (System.IO.File.Exists(imgDelete))
+                {
+                    System.IO.File.Delete(imgDelete);
+                }
+            }
+            _appContext.ProductImages.Remove(image);
+            await _appContext.SaveChangesAsync();
+            return Ok();
         }
 
     }
